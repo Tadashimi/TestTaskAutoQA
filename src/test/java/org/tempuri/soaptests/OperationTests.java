@@ -1,4 +1,4 @@
-package org.tempuri;
+package org.tempuri.soaptests;
 
 import io.restassured.http.Header;
 

@@ -1,15 +1,15 @@
-package org.tempuri.soap;
+package org.tempuri.soaptests.soap12;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.tempuri.OperationTests;
+import org.tempuri.soaptests.OperationTests;
 
 import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.contains;
-import static org.tempuri.RequestBodies.ADD_BODY;
+import static org.tempuri.soaptests.RequestBodies.ADD_12_BODY;
 
 @RunWith(value = Parameterized.class)
 public class AddOperationForValidIntegersTests extends OperationTests {
@@ -41,16 +41,17 @@ public class AddOperationForValidIntegersTests extends OperationTests {
 
     @Test
     public void validIntegersTest() {
-        String validAddBody = ADD_BODY.replaceAll("INT_A", intA)
+        String validAddBody = ADD_12_BODY.replaceAll("INT_A", intA)
                 .replaceAll("INT_B", intB);
+
         given().when()
                 .header(ADD_SOAP_ACTION_HEADER)
-                .contentType(TEXT_XML_CONTENT_TYPE)
+                .contentType(SOAP_XML_CONTENT_TYPE)
                 .body(validAddBody)
                 .post(CALCULATOR_URL)
                 .then()
                 .statusCode(OK_HTTP_STATUS)
-                .contentType(TEXT_XML_CONTENT_TYPE)
+                .contentType(SOAP_XML_CONTENT_TYPE)
                 .body("AddResult", contains(expected));
     }
 }

@@ -1,4 +1,4 @@
-package org.tempuri;
+package org.tempuri.soaptests;
 
 public final class RequestBodies {
     public final static String ADD_BODY = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +

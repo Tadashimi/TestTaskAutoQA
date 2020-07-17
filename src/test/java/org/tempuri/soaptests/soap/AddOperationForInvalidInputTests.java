@@ -1,9 +1,9 @@
-package org.tempuri.soap12;
+package org.tempuri.soaptests.soap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.tempuri.OperationTests;
+import org.tempuri.soaptests.OperationTests;
 
 import java.util.Arrays;
 
@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
-import static org.tempuri.RequestBodies.ADD_12_BODY;
+import static org.tempuri.soaptests.RequestBodies.ADD_BODY;
 
 @RunWith(value = Parameterized.class)
 public class AddOperationForInvalidInputTests extends OperationTests {
@@ -30,6 +30,7 @@ public class AddOperationForInvalidInputTests extends OperationTests {
         return Arrays.asList(new Object[][]{
                 {String.valueOf(Integer.MAX_VALUE), String.valueOf(Integer.MAX_VALUE)},
                 {String.valueOf(Integer.MIN_VALUE), String.valueOf(Integer.MIN_VALUE)},
+                {String.valueOf(Long.MAX_VALUE), String.valueOf(Long.MIN_VALUE)},
                 {"null", "null"},
                 {"abc", "!@#"},
                 {"", ""},
@@ -42,16 +43,15 @@ public class AddOperationForInvalidInputTests extends OperationTests {
 
     @Test
     public void validIntegersTest() {
-        String validAddBody = ADD_12_BODY.replaceAll("INT_A", intA)
+        String validAddBody = ADD_BODY.replaceAll("INT_A", intA)
                 .replaceAll("INT_B", intB);
         given().when()
-                .header(ADD_SOAP_ACTION_HEADER)
-                .contentType(SOAP_XML_CONTENT_TYPE)
+                .contentType(TEXT_XML_CONTENT_TYPE)
                 .body(validAddBody)
                 .post(CALCULATOR_URL)
                 .then()
                 .statusCode(SERVER_ERROR_HTTP_STATUS)
-                .contentType(SOAP_XML_CONTENT_TYPE)
+                .contentType(TEXT_XML_CONTENT_TYPE)
                 .body("soap:Fault", contains(any(String.class)))
                 .body(not(hasItem("AddResult")));
     }

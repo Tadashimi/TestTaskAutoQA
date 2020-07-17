@@ -1,9 +1,9 @@
-package org.tempuri.soap12;
+package org.tempuri.soaptests.soap12;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.tempuri.OperationTests;
+import org.tempuri.soaptests.OperationTests;
 
 import java.util.Arrays;
 
@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
-import static org.tempuri.RequestBodies.DIVIDE_12_BODY;
+import static org.tempuri.soaptests.RequestBodies.DIVIDE_12_BODY;
 
 @RunWith(value = Parameterized.class)
 public class DivideOperationForInvalidInputTests extends OperationTests {

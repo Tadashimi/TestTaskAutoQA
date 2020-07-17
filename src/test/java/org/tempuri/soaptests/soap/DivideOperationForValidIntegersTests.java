@@ -1,16 +1,15 @@
-package org.tempuri.soap12;
+package org.tempuri.soaptests.soap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.tempuri.OperationTests;
+import org.tempuri.soaptests.OperationTests;
 
 import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.contains;
-import static org.tempuri.RequestBodies.DIVIDE_12_BODY;
-import static org.tempuri.RequestBodies.DIVIDE_BODY;
+import static org.tempuri.soaptests.RequestBodies.DIVIDE_BODY;
 
 @RunWith(value = Parameterized.class)
 public class DivideOperationForValidIntegersTests extends OperationTests {
@@ -42,16 +41,16 @@ public class DivideOperationForValidIntegersTests extends OperationTests {
 
     @Test
     public void validIntegersTest() {
-        String validDivideBody = DIVIDE_12_BODY.replaceAll("INT_A", intA)
+        String validDivideBody = DIVIDE_BODY.replaceAll("INT_A", intA)
                 .replaceAll("INT_B", intB);
         given().when()
                 .header(DIVIDE_SOAP_ACTION_HEADER)
-                .contentType(SOAP_XML_CONTENT_TYPE)
+                .contentType(TEXT_XML_CONTENT_TYPE)
                 .body(validDivideBody)
                 .post(CALCULATOR_URL)
                 .then()
                 .statusCode(OK_HTTP_STATUS)
-                .contentType(SOAP_XML_CONTENT_TYPE)
+                .contentType(TEXT_XML_CONTENT_TYPE)
                 .body("DivideResult", contains(expected));
     }
 }
