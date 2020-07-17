@@ -1,10 +1,11 @@
 package org.tempuri.pojotests;
 
-import com.sun.xml.internal.ws.fault.ServerSOAPFaultException;
 import org.junit.Before;
 import org.junit.Test;
 import org.tempuri.Calculator;
 import org.tempuri.CalculatorSoap;
+
+import javax.xml.ws.WebServiceException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -58,12 +59,12 @@ public class AddOperationTests {
         assertThat(generateErrorMessage(), calculatorSoap.add(intA, intB), equalTo(expectedValue));
     }
 
-    @Test(expected = ServerSOAPFaultException.class)
+    @Test(expected = WebServiceException.class)
     public void twoMaxIntegersTest() {
         calculatorSoap.add(Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
 
-    @Test(expected = ServerSOAPFaultException.class)
+    @Test(expected = WebServiceException.class)
     public void twoMinIntegersTest() {
         calculatorSoap.add(Integer.MIN_VALUE, Integer.MIN_VALUE);
     }

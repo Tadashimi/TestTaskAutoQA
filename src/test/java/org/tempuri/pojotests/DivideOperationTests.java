@@ -1,10 +1,11 @@
 package org.tempuri.pojotests;
 
-import com.sun.xml.internal.ws.fault.ServerSOAPFaultException;
 import org.junit.Before;
 import org.junit.Test;
 import org.tempuri.Calculator;
 import org.tempuri.CalculatorSoap;
+
+import javax.xml.ws.WebServiceException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -88,7 +89,7 @@ public class DivideOperationTests {
         assertThat(generateErrorMessage(), calculatorSoap.divide(intA, intB), equalTo(expectedValue));
     }
 
-    @Test(expected = ServerSOAPFaultException.class)
+    @Test(expected = WebServiceException.class)
     public void divideByZeroTest() {
         calculatorSoap.divide(getRandomPositiveInteger(), 0);
     }
